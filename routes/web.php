@@ -8,6 +8,7 @@ use App\Http\Controllers\UploadController;
 use App\Http\Controllers\VideoController;
 use App\Http\Controllers\FirewallController;
 use App\Http\Controllers\ReportController;
+use App\Http\Controllers\ServiceController;
 
 Route::inertia('/', 'welcome')->name('home');
 
@@ -38,6 +39,8 @@ Route::get('/test-primitive', [TransistorController::class, 'test']);
 Route::get('/test-firewall', [FirewallController::class, 'test']);
 //Tagging
 Route::get('/test-reports', [ReportController::class, 'test']);
+//Extending binding
+Route::get('/test-service', [ServiceController::class, 'test']);
 
 
 require __DIR__.'/settings.php';

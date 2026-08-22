@@ -13,6 +13,9 @@ use App\Models\Filter;
 use App\Services\CpuReport;
 use App\Services\MemoryReport;
 
+use App\Services\DecoratedService;
+use App\Services\Service;
+
 use App\Http\Controllers\PhotoController;
 use App\Http\Controllers\UploadController;
 use App\Http\Controllers\VideoController;
@@ -108,6 +111,17 @@ class AppServiceProvider extends ServiceProvider
             [CpuReport::class, MemoryReport::class],
             'reports'
         );
+
+         $this->app->bind(Service::class, function () {
+            return new Service();
+        });
+
+        $this->app->extend(Service::class, function (
+            Service $service,
+            Application $app
+        ) {
+            return new DecoratedService($service);
+        });
     }
 
     /**

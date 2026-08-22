@@ -3,7 +3,6 @@
 namespace App\Services;
 
 // use Illuminate\Container\Attributes\Singleton;
-
 // #[Singleton]
 class Transistor
 {
@@ -21,13 +20,20 @@ class Transistor
     //     return 'Transistor Service';
     // }
     
-    public function __construct(
-        protected string $apiKey
-    ) {}
+    // public function __construct(
+    //     protected string $apiKey
+    // ) {}
 
-    public function getApiKey(): string
+    // public function getApiKey(): string
+    // {
+    //     return $this->apiKey;
+    // }
+
+    public string $message = 'Transistor was resolved';
+
+    public function play(): string
     {
-        return $this->apiKey;
+        return 'Transistor is playing';
     }
 }
 

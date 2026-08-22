@@ -122,6 +122,13 @@ class AppServiceProvider extends ServiceProvider
         ) {
             return new DecoratedService($service);
         });
+
+        $this->app->resolving(
+            Transistor::class,
+            function (Transistor $transistor, Application $app) {
+                $transistor->message = 'Transistor was resolved!';
+            }
+        );
     }
 
     /**

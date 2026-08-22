@@ -46,6 +46,9 @@ Route::get('/test-service', [ServiceController::class, 'test']);
 Route::get('/podcast/{id}', [PodcastController::class, 'show']);
 //Method invocation and Injection
 Route::get('/podcast-stats', [PodcastStatsController::class, 'test']);
+//Container events
+Route::get('/test-resolving', [TransistorController::class, 'test']);
+
 
 
 require __DIR__.'/settings.php';

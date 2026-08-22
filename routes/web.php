@@ -16,5 +16,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
 Route::get('/test-singleton', [PodcastController::class, 'test']);
 Route::get('/test-transistor', [TransistorController::class, 'test']);
 Route::get('/test-scoped', [TransistorController::class, 'test']);
+Route::get('/test-instance', [TransistorController::class, 'test']);
 
 require __DIR__.'/settings.php';

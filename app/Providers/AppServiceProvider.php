@@ -7,6 +7,12 @@ use App\Services\PodcastParser;
 use App\Services\PodcastService;
 use Illuminate\Contracts\Foundation\Application;
 
+use App\Http\Controllers\PhotoController;
+use App\Http\Controllers\UploadController;
+use App\Http\Controllers\VideoController;
+use Illuminate\Contracts\Filesystem\Filesystem;
+use Illuminate\Support\Facades\Storage;
+
 use Carbon\CarbonImmutable;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
@@ -53,10 +59,22 @@ class AppServiceProvider extends ServiceProvider
         //     $service
         // );
 
-        $this->app->bind(
-            PodcastService::class,
-            Transistor::class
-        );
+        // $this->app->bind(
+        //     PodcastService::class,
+        //     Transistor::class
+        // );
+
+        $this->app->when(PhotoController::class)
+            ->needs(Filesystem::class)
+            ->give(function () {
+                return Storage::disk('local');
+        });
+
+        $this->app->when([VideoController::class, UploadController::class])
+            ->needs(Filesystem::class)
+            ->give(function () {
+                return Storage::disk('local');
+        });
     }
 
     /**

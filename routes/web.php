@@ -9,6 +9,7 @@ use App\Http\Controllers\VideoController;
 use App\Http\Controllers\FirewallController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\PodcastStatsController;
 
 Route::inertia('/', 'welcome')->name('home');
 
@@ -43,8 +44,8 @@ Route::get('/test-reports', [ReportController::class, 'test']);
 Route::get('/test-service', [ServiceController::class, 'test']);
 //Automatic Injection
 Route::get('/podcast/{id}', [PodcastController::class, 'show']);
-
-
+//Method invocation and Injection
+Route::get('/podcast-stats', [PodcastStatsController::class, 'test']);
 
 
 require __DIR__.'/settings.php';

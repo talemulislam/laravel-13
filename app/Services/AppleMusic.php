@@ -15,14 +15,23 @@ class AppleMusic
     //     ];
     // }
 
-    public function findPodcast(string $id): Podcast
+    // public function findPodcast(string $id): Podcast
+    // {
+    //     $podcast = new Podcast();
+
+    //     $podcast->id = $id;
+    //     $podcast->title = 'Laravel Podcast';
+    //     $podcast->artist = 'Apple Music';
+
+    //     return $podcast;
+    // }
+
+    public function findPodcast(string $id): array
     {
-        $podcast = new Podcast();
-
-        $podcast->id = $id;
-        $podcast->title = 'Laravel Podcast';
-        $podcast->artist = 'Apple Music';
-
-        return $podcast;
+        return [
+            'id' => $id,
+            'title' => 'Laravel Podcast',
+            'artist' => 'Apple Music',
+        ];
     }
 }

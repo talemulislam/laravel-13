@@ -36,6 +36,12 @@ class AppServiceProvider extends ServiceProvider
         //         $app->make(PodcastParser::class)
         //     );
         // });
+
+        $this->app->scoped(Transistor::class, function (Application $app) {
+            return new Transistor(
+                $app->make(PodcastParser::class)
+            );
+        });
     }
 
     /**

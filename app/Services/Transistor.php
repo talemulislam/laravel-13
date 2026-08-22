@@ -2,22 +2,22 @@
 
 namespace App\Services;
 
-use Illuminate\Container\Attributes\Singleton;
+// use Illuminate\Container\Attributes\Singleton;
 
-#[Singleton]
+// #[Singleton]
 class Transistor
 {
-    // public function __construct(
-    //     protected PodcastParser $parser
-    // ) {}
+    public function __construct(
+        protected PodcastParser $parser
+    ) {}
 
-    // public function getPodcast(string $title): string
-    // {
-    //     return $this->parser->parse($title);
-    // }
-
-    public function getName(): string
+    public function getPodcast(string $title): string
     {
-        return 'Transistor Service';
+        return $this->parser->parse($title);
     }
+
+    // public function getName(): string
+    // {
+    //     return 'Transistor Service';
+    // }
 }

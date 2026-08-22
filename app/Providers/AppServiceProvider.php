@@ -31,11 +31,11 @@ class AppServiceProvider extends ServiceProvider
         //     );
         // });
 
-        $this->app->singleton(Transistor::class, function (Application $app) {
-            return new Transistor(
-                $app->make(PodcastParser::class)
-            );
-        });
+        // $this->app->singleton(Transistor::class, function (Application $app) {
+        //     return new Transistor(
+        //         $app->make(PodcastParser::class)
+        //     );
+        // });
     }
 
     /**

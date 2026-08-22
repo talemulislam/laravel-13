@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 // use Illuminate\View\View;
-// use App\Services\AppleMusic;
 
+use App\Models\Podcast;
+use App\Services\AppleMusic;
 use App\Services\PodcastService;
 use App\Services\Transistor;
 
@@ -54,8 +55,17 @@ class PodcastController extends Controller
     //     return 'Different instances';
     // }
 
-    public function show(PodcastService $podcastService)
+    // public function show(PodcastService $podcastService)
+    // {
+    //     return $podcastService->findPodcast('123');
+    // }
+
+    public function __construct(
+        protected AppleMusic $apple,
+    ) {}
+
+    public function show(string $id): Podcast
     {
-        return $podcastService->findPodcast('123');
+        return $this->apple->findPodcast($id);
     }
 }

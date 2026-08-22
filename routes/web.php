@@ -41,6 +41,10 @@ Route::get('/test-firewall', [FirewallController::class, 'test']);
 Route::get('/test-reports', [ReportController::class, 'test']);
 //Extending binding
 Route::get('/test-service', [ServiceController::class, 'test']);
+//Automatic Injection
+Route::get('/podcast/{id}', [PodcastController::class, 'show']);
+
+
 
 
 require __DIR__.'/settings.php';

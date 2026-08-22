@@ -2,6 +2,10 @@
 
 namespace App\Providers;
 
+use App\Services\Transistor;
+use App\Services\PodcastParser;
+use Illuminate\Contracts\Foundation\Application;
+
 use Carbon\CarbonImmutable;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
@@ -15,7 +19,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        $this->app->bind(Transistor::class, function (Application $app) {
+        return new Transistor(
+            $app->make(PodcastParser::class)
+        );
+    });
     }
 
     /**

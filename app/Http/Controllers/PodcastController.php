@@ -2,19 +2,33 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\View\View;
-use App\Services\AppleMusic;
+// use Illuminate\View\View;
+// use App\Services\AppleMusic;
+
+use App\Services\Transistor;
 
 class PodcastController extends Controller
 {
-    public function __construct(
-        protected AppleMusic $apple,
+    // public function __construct(
+    //     protected AppleMusic $apple,
+    // ) {}
+
+    // public function show(string $id): View
+    // {
+    //     return view('podcasts.show', [
+    //         'podcast' => $this->apple->findPodcast($id),
+    //     ]);
+    // }
+
+
+     public function __construct(
+        protected Transistor $transistor
     ) {}
 
-    public function show(string $id): View
+    public function show()
     {
-        return view('podcasts.show', [
-            'podcast' => $this->apple->findPodcast($id),
-        ]);
+        return $this->transistor->getPodcast(
+            'My Laravel Podcast'
+        );
     }
 }

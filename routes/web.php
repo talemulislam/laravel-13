@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+
+use App\Services\Transistor;
+use Psr\Container\ContainerInterface;
 use App\Http\Controllers\PodcastController;
 use App\Http\Controllers\TransistorController;
 use App\Http\Controllers\PhotoController;
@@ -48,7 +51,11 @@ Route::get('/podcast/{id}', [PodcastController::class, 'show']);
 Route::get('/podcast-stats', [PodcastStatsController::class, 'test']);
 //Container events
 Route::get('/test-resolving', [TransistorController::class, 'test']);
+//PSR-11
+Route::get('/', function (ContainerInterface $container) {
+    $service = $container->get(Transistor::class);
 
-
+    return $service->play();
+});
 
 require __DIR__.'/settings.php';

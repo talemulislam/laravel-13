@@ -29,7 +29,7 @@ class Transistor
     //     return $this->apiKey;
     // }
 
-    public string $message = 'Transistor was resolved';
+    // public string $message = 'Transistor was resolved';
 
     public function play(): string
     {

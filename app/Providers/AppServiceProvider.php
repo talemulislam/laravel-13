@@ -7,6 +7,12 @@ use App\Services\PodcastParser;
 use App\Services\PodcastService;
 use Illuminate\Contracts\Foundation\Application;
 
+use App\Firewall;
+use App\Models\Filter;
+
+use App\Services\CpuReport;
+use App\Services\MemoryReport;
+
 use App\Http\Controllers\PhotoController;
 use App\Http\Controllers\UploadController;
 use App\Http\Controllers\VideoController;
@@ -64,21 +70,44 @@ class AppServiceProvider extends ServiceProvider
         //     Transistor::class
         // );
 
-        // $this->app->when(PhotoController::class)
-        //     ->needs(Filesystem::class)
-        //     ->give(function () {
-        //         return Storage::disk('local');
-        // });
+        $this->app->when(PhotoController::class)
+            ->needs(Filesystem::class)
+            ->give(function () {
+                return Storage::disk('local');
+        });
 
-        // $this->app->when([VideoController::class, UploadController::class])
-        //     ->needs(Filesystem::class)
-        //     ->give(function () {
-        //         return Storage::disk('local');
-        // });
+        $this->app->when([VideoController::class, UploadController::class])
+            ->needs(Filesystem::class)
+            ->give(function () {
+                return Storage::disk('local');
+        });
 
-        $this->app->when(Transistor::class)
-            ->needs('$apiKey')
-            ->give('my-secret-api-key');
+        // $this->app->when(Transistor::class)
+        //     ->needs('$apiKey')
+        //     ->give('my-secret-api-key');
+
+        $this->app->when(Firewall::class)
+            ->needs(Filter::class)
+            ->give(function () {
+                return [
+                    new Filter('Authentication'),
+                    new Filter('Authorization'),
+                    new Filter('IP Address'),
+                ];
+            });
+
+        $this->app->bind(CpuReport::class, function () {
+            return new CpuReport();
+        });
+
+        $this->app->bind(MemoryReport::class, function () {
+            return new MemoryReport();
+        });
+
+        $this->app->tag(
+            [CpuReport::class, MemoryReport::class],
+            'reports'
+        );
     }
 
     /**

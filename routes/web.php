@@ -3,10 +3,11 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PodcastController;
 use App\Http\Controllers\TransistorController;
-
 use App\Http\Controllers\PhotoController;
 use App\Http\Controllers\UploadController;
 use App\Http\Controllers\VideoController;
+use App\Http\Controllers\FirewallController;
+use App\Http\Controllers\ReportController;
 
 Route::inertia('/', 'welcome')->name('home');
 
@@ -33,8 +34,10 @@ Route::get('/video-test', [VideoController::class, 'test']);
 Route::get('/upload-test', [UploadController::class, 'test']);
 //Primitive binding
 Route::get('/test-primitive', [TransistorController::class, 'test']);
-
-
+//Binding Typed Variadics
+Route::get('/test-firewall', [FirewallController::class, 'test']);
+//Tagging
+Route::get('/test-reports', [ReportController::class, 'test']);
 
 
 require __DIR__.'/settings.php';

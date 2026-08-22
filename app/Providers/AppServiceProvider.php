@@ -9,6 +9,8 @@ use Carbon\CarbonImmutable;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rules\Password;
+use App\Contracts\EventPusher;
+use App\Services\RedisEventPusher;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -22,12 +24,29 @@ class AppServiceProvider extends ServiceProvider
         //         $app->make(PodcastParser::class)
         //     );
         // });
-        $this->app->bindIf(Transistor::class, function (Application $app) {
-            return new Transistor(
-                $app->make(PodcastParser::class)
-            );
-        });
-       
+        // $this->app->bindIf(Transistor::class, function (Application $app) {
+        //     return new Transistor(
+        //         $app->make(PodcastParser::class)
+        //     );
+        // });
+
+        // $this->app->singleton(Transistor::class, function (Application $app) {
+        //     return new Transistor(
+        //         $app->make(PodcastParser::class)
+        //     );
+        // });
+        // $this->app->scoped(Transistor::class, function (Application $app) {
+        //     return new Transistor($app->make(PodcastParser::class));
+        // });
+        // $this->app->scoped(Transistor::class, function (Application $app) {
+        //     return new Transistor($app->make(PodcastParser::class));
+        // });
+        // $this->app->scopedIf(Transistor::class, function (Application $app) {
+        //     return new Transistor($app->make(PodcastParser::class));
+        // });
+        // $service = new Transistor(new PodcastParser);
+        // $this->app->instance(Transistor::class, $service);           
+        $this->app->bind(EventPusher::class, RedisEventPusher::class);
     }
 
     /*

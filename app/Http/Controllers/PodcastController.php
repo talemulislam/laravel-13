@@ -1,20 +1,17 @@
 <?php
-
 namespace App\Http\Controllers;
 
-use App\Services\AppleMusic;
-use Illuminate\View\View;
+use App\Services\Transistor;
 
 class PodcastController extends Controller
 {
     public function __construct(
-        protected AppleMusic $apple,
-    ) {}
+        protected Transistor $transistor
+    ) {
+    }
 
-    public function show(string $id): View
+    public function show()
     {
-        return view('podcasts.show', [
-            'podcast' => $this->apple->findPodcast($id)
-        ]);
+        return $this->transistor->getPodcast();
     }
 }

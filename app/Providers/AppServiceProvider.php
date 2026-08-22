@@ -1,11 +1,13 @@
 <?php
 
 namespace App\Providers;
-
+use App\Services\Transistor;
+use App\Services\PodcastParser;
+use Illuminate\Support\ServiceProvider;
+use Illuminate\Contracts\Foundation\Application;
 use Carbon\CarbonImmutable;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\ServiceProvider;
 use Illuminate\Validation\Rules\Password;
 
 class AppServiceProvider extends ServiceProvider
@@ -15,10 +17,14 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+         $this->app->bind(Transistor::class, function (Application $app) {
+            return new Transistor(
+                $app->make(PodcastParser::class)
+            );
+        });
     }
 
-    /**
+    /*
      * Bootstrap any application services.
      */
     public function boot(): void

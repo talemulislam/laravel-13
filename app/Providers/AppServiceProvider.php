@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Services\Transistor;
 use App\Services\PodcastParser;
+use App\Services\PodcastService;
 use Illuminate\Contracts\Foundation\Application;
 
 use Carbon\CarbonImmutable;
@@ -43,13 +44,18 @@ class AppServiceProvider extends ServiceProvider
         //     );
         // });
 
-        $service = new Transistor(
-            new PodcastParser
-        );
+        // $service = new Transistor(
+        //     new PodcastParser
+        // );
 
-        $this->app->instance(
-            Transistor::class,
-            $service
+        // $this->app->instance(
+        //     Transistor::class,
+        //     $service
+        // );
+
+        $this->app->bind(
+            PodcastService::class,
+            Transistor::class
         );
     }
 

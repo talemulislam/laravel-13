@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 // use Illuminate\View\View;
 // use App\Services\AppleMusic;
 
+use App\Services\PodcastService;
 use App\Services\Transistor;
 
 class PodcastController extends Controller
@@ -40,16 +41,21 @@ class PodcastController extends Controller
     //     return $transistor->getPodcast('Laravel Podcast');
     // }
 
-    public function test()
+    // public function test()
+    // {
+    //     $transistor1 = app(Transistor::class);
+
+    //     $transistor2 = app(Transistor::class);
+
+    //     if ($transistor1 === $transistor2) {
+    //         return 'Same instance';
+    //     }
+
+    //     return 'Different instances';
+    // }
+
+    public function show(PodcastService $podcastService)
     {
-        $transistor1 = app(Transistor::class);
-
-        $transistor2 = app(Transistor::class);
-
-        if ($transistor1 === $transistor2) {
-            return 'Same instance';
-        }
-
-        return 'Different instances';
+        return $podcastService->findPodcast('123');
     }
 }

@@ -17,10 +17,10 @@ class TransistorController extends Controller
         //     'same_instance' => $transistor1 === $transistor2,
         // ];
 
-        $transistor = app(Transistor::class);
+        // $transistor = app(Transistor::class);
 
-        return $transistor->getPodcast(
-            'Laravel Podcast'
-        );
+        // return $transistor->getPodcast(
+        //     'Laravel Podcast'
+        // );
     }
 }

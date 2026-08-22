@@ -17,5 +17,6 @@ Route::get('/test-singleton', [PodcastController::class, 'test']);
 Route::get('/test-transistor', [TransistorController::class, 'test']);
 Route::get('/test-scoped', [TransistorController::class, 'test']);
 Route::get('/test-instance', [TransistorController::class, 'test']);
+Route::get('/podcast', [PodcastController::class, 'show']);
 
 require __DIR__.'/settings.php';

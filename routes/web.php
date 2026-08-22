@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Route;
 
 use App\Services\Transistor;
@@ -57,5 +58,13 @@ Route::get('/', function (ContainerInterface $container) {
 
     return $service->play();
 });
+
+//Facades
+Route::get('/cache', function () {
+    Cache::put('key', 'Hello from Laravel Cache!', 60);
+
+    return Cache::get('key');
+});
+
 
 require __DIR__.'/settings.php';

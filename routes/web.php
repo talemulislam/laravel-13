@@ -11,6 +11,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
 // Route::get('/podcasts/{id}', [PodcastController::class, 'show']);
 
-Route::get('/podcast', [PodcastController::class, 'show']);
+// Route::get('/podcast', [PodcastController::class, 'show']);
+Route::get('/test-singleton', [PodcastController::class, 'test']);
 
 require __DIR__.'/settings.php';

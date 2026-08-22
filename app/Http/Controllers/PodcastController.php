@@ -33,10 +33,23 @@ class PodcastController extends Controller
     // }
 
 
-    public function show()
-    {
-        $transistor = app(Transistor::class);
+    // public function show()
+    // {
+    //     $transistor = app(Transistor::class);
 
-        return $transistor->getPodcast('Laravel Podcast');
+    //     return $transistor->getPodcast('Laravel Podcast');
+    // }
+
+    public function test()
+    {
+        $transistor1 = app(Transistor::class);
+
+        $transistor2 = app(Transistor::class);
+
+        if ($transistor1 === $transistor2) {
+            return 'Same instance';
+        }
+
+        return 'Different instances';
     }
 }

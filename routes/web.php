@@ -27,10 +27,14 @@ Route::get('/test-scoped', [TransistorController::class, 'test']);
 Route::get('/test-instance', [TransistorController::class, 'test']);
 //Binding using Interface implementations
 Route::get('/podcast', [PodcastController::class, 'show']);
-
 //Contextual Binding
 Route::get('/photo-test', [PhotoController::class, 'test']);
 Route::get('/video-test', [VideoController::class, 'test']);
 Route::get('/upload-test', [UploadController::class, 'test']);
+//Primitive binding
+Route::get('/test-primitive', [TransistorController::class, 'test']);
+
+
+
 
 require __DIR__.'/settings.php';

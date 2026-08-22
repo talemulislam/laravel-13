@@ -5,7 +5,7 @@ namespace App\Services;
 // use Illuminate\Container\Attributes\Singleton;
 
 // #[Singleton]
-class Transistor implements PodcastService
+class Transistor
 {
     // public function __construct(
     //     protected PodcastParser $parser
@@ -20,13 +20,25 @@ class Transistor implements PodcastService
     // {
     //     return 'Transistor Service';
     // }
+    
+    public function __construct(
+        protected string $apiKey
+    ) {}
 
-    public function findPodcast(string $id): array
+    public function getApiKey(): string
     {
-        return [
-            'id' => $id,
-            'title' => 'Laravel Podcast',
-            'source' => 'Transistor',
-        ];
+        return $this->apiKey;
     }
 }
+
+// class Transistor implements PodcastService
+// {
+//     public function findPodcast(string $id): array
+//     {
+//         return [
+//             'id' => $id,
+//             'title' => 'Laravel Podcast',
+//             'source' => 'Transistor',
+//         ];
+//     }
+// }

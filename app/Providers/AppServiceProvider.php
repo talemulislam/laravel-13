@@ -64,17 +64,21 @@ class AppServiceProvider extends ServiceProvider
         //     Transistor::class
         // );
 
-        $this->app->when(PhotoController::class)
-            ->needs(Filesystem::class)
-            ->give(function () {
-                return Storage::disk('local');
-        });
+        // $this->app->when(PhotoController::class)
+        //     ->needs(Filesystem::class)
+        //     ->give(function () {
+        //         return Storage::disk('local');
+        // });
 
-        $this->app->when([VideoController::class, UploadController::class])
-            ->needs(Filesystem::class)
-            ->give(function () {
-                return Storage::disk('local');
-        });
+        // $this->app->when([VideoController::class, UploadController::class])
+        //     ->needs(Filesystem::class)
+        //     ->give(function () {
+        //         return Storage::disk('local');
+        // });
+
+        $this->app->when(Transistor::class)
+            ->needs('$apiKey')
+            ->give('my-secret-api-key');
     }
 
     /**

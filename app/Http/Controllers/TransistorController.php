@@ -22,5 +22,10 @@ class TransistorController extends Controller
         // return $transistor->getPodcast(
         //     'Laravel Podcast'
         // );
+
+        $transistor = app(Transistor::class);
+
+        return $transistor->getApiKey();
+        
     }
 }

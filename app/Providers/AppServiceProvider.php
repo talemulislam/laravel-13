@@ -19,11 +19,17 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->app->bind(Transistor::class, function (Application $app) {
-        return new Transistor(
-            $app->make(PodcastParser::class)
-        );
-    });
+        // $this->app->bind(Transistor::class, function (Application $app) {
+        //     return new Transistor(
+        //         $app->make(PodcastParser::class)
+        //     );
+        // });
+
+        $this->app->bindIf(Transistor::class, function (Application $app) {
+            return new Transistor(
+                $app->make(PodcastParser::class)
+            );
+        });
     }
 
     /**

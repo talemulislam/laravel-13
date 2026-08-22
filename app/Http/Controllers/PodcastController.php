@@ -21,14 +21,22 @@ class PodcastController extends Controller
     // }
 
 
-     public function __construct(
-        protected Transistor $transistor
-    ) {}
+    //  public function __construct(
+    //     protected Transistor $transistor
+    // ) {}
+
+    // public function show()
+    // {
+    //     return $this->transistor->getPodcast(
+    //         'My Laravel Podcast'
+    //     );
+    // }
+
 
     public function show()
     {
-        return $this->transistor->getPodcast(
-            'My Laravel Podcast'
-        );
+        $transistor = app(Transistor::class);
+
+        return $transistor->getPodcast('Laravel Podcast');
     }
 }

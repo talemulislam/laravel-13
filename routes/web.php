@@ -77,7 +77,11 @@ Route::get('/cache-user/{id}', function (string $id) {
 
     return 'User stored in cache.';
 });
-
+//Real-time facades
+Route::get('/test-podcast-publish', [
+    PodcastController::class,
+    'test',
+]);
 
 
 

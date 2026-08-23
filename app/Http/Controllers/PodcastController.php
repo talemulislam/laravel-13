@@ -60,12 +60,26 @@ class PodcastController extends Controller
     //     return $podcastService->findPodcast('123');
     // }
 
-    public function __construct(
-        protected AppleMusic $apple,
-    ) {}
+    // public function __construct(
+    //     protected AppleMusic $apple,
+    // ) {}
 
-    public function show(string $id): Podcast
+    // public function show(string $id): Podcast
+    // {
+    //     return $this->apple->findPodcast($id);
+    // }
+
+    public function test()
     {
-        return $this->apple->findPodcast($id);
+        $podcast = Podcast::create([
+            'name' => 'Laravel Podcast',
+        ]);
+
+        app()->call([$podcast, 'publish']);
+
+        return [
+            'message' => 'Podcast published successfully',
+            'podcast' => $podcast->fresh(),
+        ];
     }
 }

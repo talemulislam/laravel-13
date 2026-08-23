@@ -22,6 +22,9 @@ use App\Http\Controllers\VideoController;
 use Illuminate\Contracts\Filesystem\Filesystem;
 use Illuminate\Support\Facades\Storage;
 
+use App\Contracts\Publisher;
+use App\Services\PodcastPublisher;
+
 use Carbon\CarbonImmutable;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
@@ -128,6 +131,11 @@ class AppServiceProvider extends ServiceProvider
             function (Transistor $transistor, Application $app) {
                 $transistor->message = 'Transistor was resolved!';
             }
+        );
+
+        $this->app->bind(
+            Publisher::class,
+            PodcastPublisher::class
         );
     }
 

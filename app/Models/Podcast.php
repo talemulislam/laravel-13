@@ -2,14 +2,22 @@
 
 namespace App\Models;
 
+use App\Contracts\Publisher;
 use Illuminate\Database\Eloquent\Model;
 
 class Podcast extends Model
 {
-    public $timestamps = false;
-
     protected $fillable = [
-        'title',
-        'artist',
+        'name',
+        'publishing',
     ];
+
+    public function publish(Publisher $publisher): void
+    {
+        $this->update([
+            'publishing' => now(),
+        ]);
+
+        $publisher->publish($this);
+    }
 }

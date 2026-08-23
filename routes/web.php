@@ -139,8 +139,14 @@ Route::controller(OrderController::class)->group(function () {
     Route::get('/orders/{id}', 'show');
     Route::post('/orders', 'store');
 });
+//Subdomain Routing
+Route::domain('{account}.laravel_doc.test')->group(function () {
 
+    Route::get('/user/{id}', function (string $account, string $id) {
+        return "Account: $account, User ID: $id";
+    });
 
+});
 
 
 

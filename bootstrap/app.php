@@ -31,6 +31,8 @@ return Application::configure(basePath: dirname(__DIR__))
             HandleInertiaRequests::class,
             AddLinkHeadersForPreloadedAssets::class,
         ]);
+        //origin check
+        $middleware->preventRequestForgery(originOnly: true);
 
         // Middleware alias
         $middleware->alias([

@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
 
 use App\Services\Transistor;
 use Psr\Container\ContainerInterface;
@@ -188,6 +189,28 @@ Route::get('/login-test', function () {
 Route::get('/test', function () {
     return 'Hello from the route!';
 });
+//Preventing CSRF requests
+Route::get('/token', function (Request $request) {
+    $sessionToken = $request->session()->token();
+
+    $csrfToken = csrf_token();
+
+    return [
+        'session_token' => $sessionToken,
+        'csrf_token' => $csrfToken,
+        'same' => $sessionToken === $csrfToken,
+    ];
+});
+//Origin Verification of CSRF
+Route::view('/forgerytest','forgerytest');
+Route::post('/test-forgery', function (Request $request) {
+    return 'Request accepted!';
+});
+
+
+
+
+
 
 
 

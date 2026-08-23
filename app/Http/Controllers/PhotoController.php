@@ -21,4 +21,13 @@ class PhotoController extends Controller
             'files' => $files,
         ]);
     }
+    public function test()
+    {
+        $this->filesystem->put(
+            'photo-test.txt',
+            'hello world'
+        );
+
+      return 'created sucessfully';
+    }
 }

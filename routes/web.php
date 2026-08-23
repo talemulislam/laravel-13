@@ -5,7 +5,9 @@ use App\Http\Controllers\PodcastController;
 use App\Http\Controllers\PhotoController;
 use App\Http\Controllers\UploadController;
 use App\Http\Controllers\VideoController;
-
+use App\Http\Controllers\ReportController;
+use App\Http\Controllers\FirewallController;
+use App\Http\Controllers\TestController;
 
 Route::inertia('/', 'welcome')->name('home');
 
@@ -31,3 +33,13 @@ Route::get('/video', [VideoController::class, 'index']);
 
 Route::get('/upload', [UploadController::class, 'index']);
 
+Route::get('/test',[PhotoController::class,'test']);
+
+Route::get('/report', [ReportController::class, 'index']);
+
+Route::get('/report', [ReportController::class, 'index']);
+
+
+Route::get('/firewall', [FirewallController::class, 'index']);
+
+Route::get('/test', [TestController::class, 'test']);

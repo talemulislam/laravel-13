@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Providers;
+
 use App\Services\Transistor;
 use App\Services\PodcastParser;
 use Illuminate\Support\ServiceProvider;
@@ -13,10 +14,14 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rules\Password;
 use App\Contracts\EventPusher;
 use App\Services\RedisEventPusher;
+use App\Services\ReportService;
+use App\Services\ReportAnalyzer;
 use App\Http\Controllers\PhotoController;
 use App\Http\Controllers\UploadController;
 use App\Http\Controllers\VideoController;
-
+use  App\Reports\CpuReport;
+use  App\Reports\DiskReport;
+use  App\Reports\MemoryReport;
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -51,21 +56,40 @@ class AppServiceProvider extends ServiceProvider
         // });
         // $service = new Transistor(new PodcastParser);
         // $this->app->instance(Transistor::class, $service);           
-       // $this->app->bind(EventPusher::class, RedisEventPusher::class);
-        $this->app->when(PhotoController::class)
-            ->needs(Filesystem::class)
-            ->give(function () {
-                return Storage::disk('local');
-            });
+        // $this->app->bind(EventPusher::class, RedisEventPusher::class);
+        // $this->app->when(PhotoController::class)
+        //     ->needs(Filesystem::class)
+        //     ->give(function () {
+        //         return Storage::disk('local');
+        //     });
 
-        $this->app->when([
-            VideoController::class,
-            UploadController::class,
-        ])
-            ->needs(Filesystem::class)
-            ->give(function () {
-                return Storage::disk('local');
-            });
+        // $this->app->when([
+        //     VideoController::class,
+        //     UploadController::class,
+        // ])
+        //     ->needs(Filesystem::class)
+        //     ->give(function () {
+        //         return Storage::disk('local');
+        //     });
+        $this->app->when(ReportService::class)
+            ->needs('$limit')
+            ->give(100);
+        
+        $this->app->when(ReportService::class)
+            ->needs('$format')
+            ->give('pdf');
+        
+    $this->app->bind(CpuReport::class, function () {
+        return new CpuReport();
+    });
+
+    $this->app->bind(MemoryReport::class, function () {
+        return new MemoryReport();
+    });
+
+    $this->app->bind(DiskReport::class, function () {
+        return new DiskReport();
+    });
     }
 
     /*
@@ -87,14 +111,28 @@ class AppServiceProvider extends ServiceProvider
             app()->isProduction(),
         );
 
-        Password::defaults(fn (): ?Password => app()->isProduction()
-            ? Password::min(12)
+        Password::defaults(
+            fn(): ?Password => app()->isProduction()
+                ? Password::min(12)
                 ->mixedCase()
                 ->letters()
                 ->numbers()
                 ->symbols()
                 ->uncompromised()
-            : null,
+                : null,
         );
+        $this->app->tag(
+        [
+            CpuReport::class,
+            MemoryReport::class,
+            DiskReport::class,
+        ],
+        'reports'
+        );
+    $this->app->bind(ReportAnalyzer::class, function ($app) {
+        return new ReportAnalyzer(
+        $app->tagged('reports')
+        );
+    });
     }
 }

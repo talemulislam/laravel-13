@@ -95,8 +95,13 @@ Route::get('/there', function () {
 //View routes
 // Route::view('/welcome', 'welcome');
 Route::view('/welcome', 'welcome', ['name' => 'Taylor']);
-
-
+//Optional parameter routes
+// Route::get('/user/{name?}', function (?string $name = null) {
+//     return $name;
+// });
+Route::get('/user/{name?}', function (?string $name = 'John') {
+    return $name;
+});
 
 
 require __DIR__.'/settings.php';

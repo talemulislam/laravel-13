@@ -9,7 +9,7 @@ use App\Http\Controllers\ReportController;
 use App\Http\Controllers\FirewallController;
 use App\Http\Controllers\TestController;
 use Illuminate\Support\Facades\Cache;
-
+use Illuminate\Support\Facades\Response;
 
 Route::inertia('/', 'welcome')->name('home');
 
@@ -57,4 +57,32 @@ Route::get('/set-cache', function () {
 
 Route::get('/cache', function () {
     return Cache::get('key');
+});
+
+Route::get('/users', function () {
+    return Response::json([
+        'name' => 'Rahik',
+        'email' => 'rahik@example.com',
+    ]);
+});
+
+
+Route::get('/users', function () {
+    return response()->json([
+        [
+            'id' => 1,
+            'name' => 'Rahik',
+            'email' => 'rahik@example.com',
+        ],
+        [
+            'id' => 2,
+            'name' => 'John',
+            'email' => 'john@example.com',
+        ],
+        [
+            'id' => 3,
+            'name' => 'David',
+            'email' => 'david@example.com',
+        ],
+    ]);
 });

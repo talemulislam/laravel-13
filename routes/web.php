@@ -219,7 +219,10 @@ Route::resource('products', ProductController::class)->names([
 ]);
 //Creatable Singleton Resource Controller
 Route::singleton('photos.thumbnail', ThumbnailController::class)->creatable();
-
+//Applying Middelware to Specific Methods
+Route::resource('products', ProductController::class)
+    ->middlewareFor(['show', 'edit'], 'auth');
+    // ->middlewareFor('destroy', ['auth', 'verified']);
 
 
 

@@ -166,8 +166,13 @@ Route::get('/locations/{location:slug}', [LocationsController::class, 'show'])
     ->missing(function () {
         return redirect()->route('locations.index');
     });
-
-
+//Rate limiter in routes
+Route::middleware('throttle:login')->post('/login', function () {
+    return 'Login successful';
+});
+Route::get('/login-test', function () {
+    return view('login-test');
+});
 
 
 

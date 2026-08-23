@@ -25,6 +25,10 @@ use Illuminate\Support\Facades\Storage;
 use App\Contracts\Publisher;
 use App\Services\PodcastPublisher;
 
+use Illuminate\Cache\RateLimiting\Limit;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\RateLimiter;
+
 use Carbon\CarbonImmutable;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
@@ -145,6 +149,15 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->configureDefaults();
+
+        RateLimiter::for('login', function (Request $request) {
+            return [
+                Limit::perMinute(500),
+
+                Limit::perMinute(3)
+                    ->by($request->input('email')),
+            ];
+        });
     }
 
     /**

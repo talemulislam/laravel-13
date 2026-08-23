@@ -117,5 +117,9 @@ Route::get('/user/{id}/{name}', function (string $id, string $name) {
     'id' => '[0-9]+',
     'name' => '[a-z]+'
 ]);
+//Encoded Forward Slashes routes
+Route::get('/search/{search}', function (string $search) {
+    return $search;
+})->where('search', '.*');
 
 require __DIR__.'/settings.php';

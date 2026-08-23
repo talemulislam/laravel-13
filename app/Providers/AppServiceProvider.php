@@ -5,12 +5,17 @@ use App\Services\Transistor;
 use App\Services\PodcastParser;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\Filesystem\Filesystem;
 use Carbon\CarbonImmutable;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rules\Password;
 use App\Contracts\EventPusher;
 use App\Services\RedisEventPusher;
+use App\Http\Controllers\PhotoController;
+use App\Http\Controllers\UploadController;
+use App\Http\Controllers\VideoController;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -46,7 +51,21 @@ class AppServiceProvider extends ServiceProvider
         // });
         // $service = new Transistor(new PodcastParser);
         // $this->app->instance(Transistor::class, $service);           
-        $this->app->bind(EventPusher::class, RedisEventPusher::class);
+       // $this->app->bind(EventPusher::class, RedisEventPusher::class);
+        $this->app->when(PhotoController::class)
+            ->needs(Filesystem::class)
+            ->give(function () {
+                return Storage::disk('local');
+            });
+
+        $this->app->when([
+            VideoController::class,
+            UploadController::class,
+        ])
+            ->needs(Filesystem::class)
+            ->give(function () {
+                return Storage::disk('local');
+            });
     }
 
     /*

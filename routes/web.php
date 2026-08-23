@@ -2,6 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PodcastController;
+use App\Http\Controllers\PhotoController;
+use App\Http\Controllers\UploadController;
+use App\Http\Controllers\VideoController;
 
 
 Route::inertia('/', 'welcome')->name('home');
@@ -17,7 +20,14 @@ Route::get('/podcast', [PodcastController::class, 'show']);
 // });
 
 
+
 Route::get('/podcasts/{id}', [PodcastController::class, 'show']);
 
 require __DIR__.'/settings.php';
+
+Route::get('/photo', [PhotoController::class, 'index']);
+
+Route::get('/video', [VideoController::class, 'index']);
+
+Route::get('/upload', [UploadController::class, 'index']);
 

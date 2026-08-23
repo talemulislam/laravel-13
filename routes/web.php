@@ -181,10 +181,13 @@ Route::get('/login-test', function () {
 //     return 'Token is valid!';
 // })->middleware('token');
 //Middleware Groups
+// Route::get('/test', function () {
+//     return 'Route reached';
+// });
+//Terminable Middleware
 Route::get('/test', function () {
-    return 'Route reached';
+    return 'Hello from the route!';
 });
-
 
 
 

@@ -19,6 +19,7 @@ use App\Http\Controllers\PodcastStatsController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\LocationsController;
+use App\Http\Controllers\ProductController;
 
 Route::inertia('/', 'welcome')->name('home');
 
@@ -210,8 +211,11 @@ Route::post('/test-forgery', function (Request $request) {
 Route::get('/users', [UserController::class, 'index']);
 Route::post('/users', [UserController::class, 'store']);
 Route::get('/users/show', [UserController::class, 'show']);
-
-
+//Naming Resource Routes
+Route::resource('products', ProductController::class)->names([
+    'create' => 'products.add',
+    'edit' => 'products.modify',
+]);
 
 
 

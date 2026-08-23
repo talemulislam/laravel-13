@@ -147,6 +147,14 @@ Route::domain('{account}.laravel_doc.test')->group(function () {
     });
 
 });
+//Route Name Prefixes
+Route::name('admin.')->group(function () {
+
+    Route::get('/users', function () {
+        return route('admin.users');
+    })->name('users');
+
+});
 
 
 

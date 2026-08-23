@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Middleware\LogMiddleware;
+use App\Http\Middleware\SubscribedMiddleware;
 use App\Http\Middleware\EnsureTokenIsValid;
 use App\Http\Middleware\First;
 use App\Http\Middleware\Second;
@@ -24,6 +26,8 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware): void {
         // Add middleware to the web group
         $middleware->web(append: [
+            LogMiddleware::class,
+            SubscribedMiddleware::class,
             TerminatingMiddleware::class,
             First::class,
             Second::class,
@@ -32,11 +36,13 @@ return Application::configure(basePath: dirname(__DIR__))
             AddLinkHeadersForPreloadedAssets::class,
         ]);
         //origin check
-        $middleware->preventRequestForgery(originOnly: true);
+        $middleware->preventRequestForgery();
 
         // Middleware alias
         $middleware->alias([
             'token' => EnsureTokenIsValid::class,
+            'log' => LogMiddleware::class,
+            'subscribed' => SubscribedMiddleware::class,
         ]);
 
         // Cookie configuration

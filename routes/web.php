@@ -107,35 +107,35 @@ Route::view('/welcome', 'welcome', ['name' => 'Taylor']);
 //     return $name;
 // });
 //Regular Expression Constraints
-Route::get('/user/{name}', function (string $name) {
-    return "Name: " . $name;
-})->where('name', '[A-Za-z]+');
+// Route::get('/user/{name}', function (string $name) {
+//     return "Name: " . $name;
+// })->where('name', '[A-Za-z]+');
 
-Route::get('/user/{id}', function (string $id) {
-    return "ID: " . $id;
-})->where('id', '[0-9]+');
+// Route::get('/user/{id}', function (string $id) {
+//     return "ID: " . $id;
+// })->where('id', '[0-9]+');
 
-Route::get('/user/{id}/{name}', function (string $id, string $name) {
-    return "ID: $id, Name: $name";
-})->where([
-    'id' => '[0-9]+',
-    'name' => '[a-z]+'
-]);
+// Route::get('/user/{id}/{name}', function (string $id, string $name) {
+//     return "ID: $id, Name: $name";
+// })->where([
+//     'id' => '[0-9]+',
+//     'name' => '[a-z]+'
+// ]);
 //Encoded Forward Slashes routes
 Route::get('/search/{search}', function (string $search) {
     return $search;
 })->where('search', '.*');
 //Generating url to named routes
-Route::get('/user/{id}/profile', function (string $id) {
-    $url = route('profile', [
-        'id' => 1,
-        'photos' => 'yes',
-        'sort' => 'latest',
-        'page' => 2,
-    ]);
+// Route::get('/user/{id}/profile', function (string $id) {
+//     $url = route('profile', [
+//         'id' => 1,
+//         'photos' => 'yes',
+//         'sort' => 'latest',
+//         'page' => 2,
+//     ]);
 
-    return $url;
-})->name('profile');
+//     return $url;
+// })->name('profile');
 //Controller route group
 Route::controller(OrderController::class)->group(function () {
     Route::get('/order', 'index');
@@ -143,21 +143,21 @@ Route::controller(OrderController::class)->group(function () {
     Route::post('/orders', 'store');
 });
 //Subdomain Routing
-Route::domain('{account}.laravel_doc.test')->group(function () {
+// Route::domain('{account}.laravel_doc.test')->group(function () {
 
-    Route::get('/user/{id}', function (string $account, string $id) {
-        return "Account: $account, User ID: $id";
-    });
+//     Route::get('/user/{id}', function (string $account, string $id) {
+//         return "Account: $account, User ID: $id";
+//     });
 
-});
+// });
 //Route Name Prefixes
-Route::name('admin.')->group(function () {
+// Route::name('admin.')->group(function () {
 
-    Route::get('/users', function () {
-        return route('admin.users');
-    })->name('users');
+//     Route::get('/users', function () {
+//         return route('admin.users');
+//     })->name('users');
 
-});
+// });
 //Implicit Route Model Binding
 Route::get('/locations', [LocationsController::class, 'index'])
     ->name('locations.index');
@@ -206,8 +206,10 @@ Route::view('/forgerytest','forgerytest');
 Route::post('/test-forgery', function (Request $request) {
     return 'Request accepted!';
 });
-
-
+//Controller Middleware
+Route::get('/users', [UserController::class, 'index']);
+Route::post('/users', [UserController::class, 'store']);
+Route::get('/users/show', [UserController::class, 'show']);
 
 
 

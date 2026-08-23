@@ -173,7 +173,13 @@ Route::middleware('throttle:login')->post('/login', function () {
 Route::get('/login-test', function () {
     return view('login-test');
 });
-
+//Defining Middleware
+Route::get('/home', function () {
+    return 'Home Page';
+});
+Route::get('/test', function () {
+    return 'Token is valid!';
+})->middleware('token');
 
 
 

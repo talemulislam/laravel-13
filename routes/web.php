@@ -20,6 +20,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\LocationsController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ThumbnailController;
 
 Route::inertia('/', 'welcome')->name('home');
 
@@ -216,6 +217,13 @@ Route::resource('products', ProductController::class)->names([
     'create' => 'products.add',
     'edit' => 'products.modify',
 ]);
+//Creatable Singleton Resource Controller
+Route::singleton('photos.thumbnail', ThumbnailController::class)->creatable();
+
+
+
+
+
 
 
 

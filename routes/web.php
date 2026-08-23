@@ -87,6 +87,11 @@ Route::get('/test-podcast-publish', [
 Route::get('/greeting', function () {
     return 'Hello World';
 });
+//Redirect routes
+Route::redirect('/here', '/there', 301);
+Route::get('/there', function () {
+    return 'You are now at /there';
+});
 
 
 

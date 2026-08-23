@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Route;
 
@@ -16,6 +17,7 @@ use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\PodcastStatsController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\LocationsController;
 
 Route::inertia('/', 'welcome')->name('home');
 
@@ -155,8 +157,15 @@ Route::name('admin.')->group(function () {
     })->name('users');
 
 });
+//Implicit Route Model Binding
+Route::get('/locations', [LocationsController::class, 'index'])
+    ->name('locations.index');
 
-
+Route::get('/locations/{location:slug}', [LocationsController::class, 'show'])
+    ->name('locations.view')
+    ->missing(function () {
+        return redirect()->route('locations.index');
+    });
 
 
 

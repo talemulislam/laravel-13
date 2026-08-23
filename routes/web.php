@@ -8,6 +8,8 @@ use App\Http\Controllers\VideoController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\FirewallController;
 use App\Http\Controllers\TestController;
+use Illuminate\Support\Facades\Cache;
+
 
 Route::inertia('/', 'welcome')->name('home');
 
@@ -43,3 +45,16 @@ Route::get('/report', [ReportController::class, 'index']);
 Route::get('/firewall', [FirewallController::class, 'index']);
 
 Route::get('/test', [TestController::class, 'test']);
+
+
+
+
+Route::get('/set-cache', function () {
+    Cache::put('key', 'Hello Laravel Cache!', 300);
+
+    return 'Cache stored successfully!';
+});
+
+Route::get('/cache', function () {
+    return Cache::get('key');
+});

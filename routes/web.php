@@ -92,6 +92,9 @@ Route::redirect('/here', '/there', 301);
 Route::get('/there', function () {
     return 'You are now at /there';
 });
+//View routes
+// Route::view('/welcome', 'welcome');
+Route::view('/welcome', 'welcome', ['name' => 'Taylor']);
 
 
 

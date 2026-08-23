@@ -83,6 +83,11 @@ Route::get('/test-podcast-publish', [
     'test',
 ]);
 
+//Routing basic
+Route::get('/greeting', function () {
+    return 'Hello World';
+});
+
 
 
 

@@ -209,9 +209,9 @@ Route::post('/test-forgery', function (Request $request) {
     return 'Request accepted!';
 });
 //Controller Middleware
-Route::get('/users', [UserController::class, 'index']);
-Route::post('/users', [UserController::class, 'store']);
-Route::get('/users/show', [UserController::class, 'show']);
+// Route::get('/users', [UserController::class, 'index']);
+// Route::post('/users', [UserController::class, 'store']);
+// Route::get('/users/show', [UserController::class, 'show']);
 //Naming Resource Routes
 Route::resource('products', ProductController::class)->names([
     'create' => 'products.add',
@@ -223,7 +223,9 @@ Route::singleton('photos.thumbnail', ThumbnailController::class)->creatable();
 Route::resource('products', ProductController::class)
     ->middlewareFor(['show', 'edit'], 'auth');
     // ->middlewareFor('destroy', ['auth', 'verified']);
-
+//Dependency Injection and Controllers
+Route::get('/users', [UserController::class, 'index']);
+Route::put('/users/{id}', [UserController::class, 'update']);
 
 
 

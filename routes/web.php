@@ -15,6 +15,7 @@ use App\Http\Controllers\ReportController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\PodcastStatsController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\OrderController;
 
 Route::inertia('/', 'welcome')->name('home');
 
@@ -132,4 +133,22 @@ Route::get('/user/{id}/profile', function (string $id) {
 
     return $url;
 })->name('profile');
+//Controller route group
+Route::controller(OrderController::class)->group(function () {
+    Route::get('/order', 'index');
+    Route::get('/orders/{id}', 'show');
+    Route::post('/orders', 'store');
+});
+
+
+
+
+
+
+
+
+
+
+
+
 require __DIR__.'/settings.php';

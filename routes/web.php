@@ -99,9 +99,23 @@ Route::view('/welcome', 'welcome', ['name' => 'Taylor']);
 // Route::get('/user/{name?}', function (?string $name = null) {
 //     return $name;
 // });
-Route::get('/user/{name?}', function (?string $name = 'John') {
-    return $name;
-});
+// Route::get('/user/{name?}', function (?string $name = 'John') {
+//     return $name;
+// });
+//Regular Expression Constraints
+Route::get('/user/{name}', function (string $name) {
+    return "Name: " . $name;
+})->where('name', '[A-Za-z]+');
 
+Route::get('/user/{id}', function (string $id) {
+    return "ID: " . $id;
+})->where('id', '[0-9]+');
+
+Route::get('/user/{id}/{name}', function (string $id, string $name) {
+    return "ID: $id, Name: $name";
+})->where([
+    'id' => '[0-9]+',
+    'name' => '[a-z]+'
+]);
 
 require __DIR__.'/settings.php';

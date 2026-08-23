@@ -14,6 +14,7 @@ use App\Http\Controllers\FirewallController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\PodcastStatsController;
+use App\Http\Controllers\UserController;
 
 Route::inertia('/', 'welcome')->name('home');
 
@@ -65,6 +66,20 @@ Route::get('/cache', function () {
 
     return Cache::get('key');
 });
+//Use of facades on a controller
+Route::get('/profile/{id}', [UserController::class, 'showProfile']);
+Route::get('/cache-user/{id}', function (string $id) {
+    Cache::put('user:' . $id, [
+        'id' => $id,
+        'name' => 'John Doe',
+        'email' => 'john@example.com',
+    ], 600);
+
+    return 'User stored in cache.';
+});
+
+
+
 
 
 require __DIR__.'/settings.php';

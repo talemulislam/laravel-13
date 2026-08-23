@@ -121,5 +121,15 @@ Route::get('/user/{id}/{name}', function (string $id, string $name) {
 Route::get('/search/{search}', function (string $search) {
     return $search;
 })->where('search', '.*');
+//Generating url to named routes
+Route::get('/user/{id}/profile', function (string $id) {
+    $url = route('profile', [
+        'id' => 1,
+        'photos' => 'yes',
+        'sort' => 'latest',
+        'page' => 2,
+    ]);
 
+    return $url;
+})->name('profile');
 require __DIR__.'/settings.php';

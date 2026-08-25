@@ -224,10 +224,16 @@ Route::resource('products', ProductController::class)
     ->middlewareFor(['show', 'edit'], 'auth');
     // ->middlewareFor('destroy', ['auth', 'verified']);
 //Dependency Injection and Controllers
-Route::get('/users', [UserController::class, 'index']);
-Route::put('/users/{id}', [UserController::class, 'update']);
+// Route::get('/users', [UserController::class, 'index']);
+// Route::put('/users/{id}', [UserController::class, 'update']);
+//Retrieving the Request URL
+Route::get('/users', function (Request $request) {
+    $url = $request->fullUrlWithQuery([
+        'type' => 'phone'
+    ]);
 
-
+    return $url;
+});
 
 
 

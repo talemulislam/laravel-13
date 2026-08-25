@@ -234,6 +234,14 @@ Route::get('/users', function (Request $request) {
 
     return $url;
 });
+//Retrieving the Request Host
+Route::get('/request-info', function (Request $request) {
+    return [
+        'host' => $request->host(),
+        'httpHost' => $request->httpHost(),
+        'schemeAndHttpHost' => $request->schemeAndHttpHost(),
+    ];
+});
 
 
 

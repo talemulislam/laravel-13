@@ -10,6 +10,8 @@ use App\Http\Controllers\FirewallController;
 use App\Http\Controllers\TestController;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Context;
 
 Route::inertia('/', 'welcome')->name('home');
 
@@ -85,4 +87,29 @@ Route::get('/users', function () {
             'email' => 'david@example.com',
         ],
     ]);
+});
+
+Route::get('/cache', function () {
+    return Cache::get('key');
+});
+
+Route::get('/form-uri' ,function(){
+    return view('form');
+})->name('users.store');
+
+
+
+
+Route::get('/test-log', function () {
+
+    Log::info('Test log is working!');
+
+    return 'Log created';
+});
+
+Route::get('/test-context', function () {
+    return [
+        'url' => Context::get('url'),
+        'trace_id' => Context::get('trace_id'),
+    ];
 });
